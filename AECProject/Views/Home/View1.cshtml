@@ -1,0 +1,40 @@
+﻿<h1>Hello From My first View</h1>
+<!--C# HTML-->
+
+<style>
+    h1{
+        color:brown
+    }
+</style>
+<script>
+    console.log("Hello")
+</script>
+<!--Understand C# using Razor Santyx-->
+<!--Block OF Code-->
+@{
+    int x=10;
+    int y=x+10;   
+}
+<!--Inline Statment replace html-->
+@x
+<br/>
+@(x+y)
+
+<!--Condition Statment-->
+@if (x < y)
+{
+    <!--Display x less than y-->
+    <h2>X = @x Less Than Y= @y</h2> 
+}
+else
+{
+    <h2>X Greater Than Y</h2>
+
+}
+
+<!--Looping statment-->
+@for(int i = 0; i < 10; i++)
+{
+    <li>@i</li>
+}
+

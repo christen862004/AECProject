@@ -1,0 +1,15 @@
+﻿@* @model AECProject.ViewModels.EmployeeNAmeWithClrDateMsgBranchesViewModel *@
+@* @using AECProject.ViewModels *@
+@model EmployeeNAmeWithClrDateMsgBranchesViewModel
+@{
+    ViewData["Title"] = "DetailsWithVm";
+}
+
+<h1>DetailsWithVm</h1>
+<h2 style="color:@Model.Color">@Model.EmpNAme</h2>
+<select class="form form-control">
+    @foreach (var item in Model.Branches)
+    {
+       <option>@item</option> 
+    }
+</select>

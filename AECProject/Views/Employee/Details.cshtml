@@ -1,0 +1,36 @@
+﻿@model Employee
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<h1 style="color:@ViewData["clr"]">@Model.Name</h1>
+<!--ViewData propblem -->
+<!--Type Cast-->
+<!--Key right (Magic String)-->
+@ViewData["Message"]
+<br/>
+@ViewBag.Message
+<hr />
+@(int.Parse(ViewData["Temp"].ToString())+10)
+<br />
+@(ViewBag.Temp+10)
+<hr />
+<select class="form form-control ">
+    @foreach (var item in ViewBag.brch)
+    {
+        <option>@item</option>
+    }
+</select>
+<br />
+<select class="form form-control ">
+    @foreach (var item in (List<string>)ViewData["brch"])
+    {
+        <option>@item</option>
+    }
+</select>
+<hr />
+@ViewData["age"]
+<br />
+@ViewBag.age

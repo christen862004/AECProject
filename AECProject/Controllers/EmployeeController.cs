@@ -10,6 +10,63 @@ namespace AECProject.Controllers
         {
             
         }
+        public IActionResult Index()
+        {
+            return View("Index", context.Employee.ToList());//pagination
+        }
+
+        //press Link
+        public IActionResult Edit(int id)
+        {
+            Employee empModel= context.Employee.FirstOrDefault(e => e.Id == id);
+            List<Department> departmentList= context.Department.ToList();
+
+            //View need to Employee obj + List<DEpartment> (Mapping to VM)
+            EmpWithDeptListViewModel EmpViewModel= new EmpWithDeptListViewModel();
+            EmpViewModel.Id = empModel.Id;
+            EmpViewModel.Name = empModel.Name;
+            EmpViewModel.Image = empModel.Image;
+            EmpViewModel.Address = empModel.Address;
+            EmpViewModel.Salary = empModel.Salary;
+            EmpViewModel.JobTitle = empModel.JobTitle;
+            EmpViewModel.DepartmentId = empModel.DepartmentId;
+            EmpViewModel.DeptList= departmentList;
+
+
+            return View("Edit",EmpViewModel);//load old info
+        }
+
+        [HttpPost]
+        public IActionResult SaveEdit(EmpWithDeptListViewModel empFromReq)
+        {
+            if(empFromReq.Name!=null && empFromReq.Salary > 6000)
+            {
+                //get data from viewmodel ==>model
+                Employee empFromDB = context.Employee.FirstOrDefault(e => e.Id == empFromReq.Id);
+                empFromDB.Name = empFromReq.Name;
+                empFromDB.Address = empFromReq.Address;
+                empFromDB.Salary = empFromReq.Salary;
+                empFromDB.Image = empFromReq.Image;
+                empFromDB.JobTitle = empFromReq.JobTitle;
+                empFromDB.DepartmentId = empFromReq.DepartmentId;
+                //context.Update(empFromReq);//id Added (0) | id found Modified
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Edit", empFromReq);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         public IActionResult DetailsWithVm(int id)
         {

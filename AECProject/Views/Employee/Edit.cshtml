@@ -3,6 +3,7 @@
     ViewData["Title"] = "Edit";
 }
 
+
 <h1>Edit</h1>
 <!--Back End
     Employee Edit  
@@ -11,16 +12,29 @@
 <form method="post" action="/Employee/SaveEdit/@Model.Id">
     @* <input type="hidden" name="id" value="@Model.Id" /> *@
     <div>
-        <label>Name</label>
-        <input type="text" value="@Model.Name" name="Name" id="Name" class="form form-control" />
+      @*<label>Name</label>
+         <input type="text" value="@Model.Name" name="Name" id="Name" class="form form-control" />
+        <h3>lossly type helper</h3>
+        @Html.TextBox("Name")
+        <h3>String Tyoe helper mumst using inside view Strong type helper</h3> *@
+        @Html.LabelFor(e=>e.Name)
+       @*  @Html.TextBoxFor(e => e.Name, 
+            new { style = "color:red;font-size:30px",@class="form form-control"}) 
+        @Html.EditorFor(e=>e.Name)*@
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form form-control" />
+       <!--Id ,name,value ,type-->
+    </div>
+
+    <div>
+        <label>Salary</label>
+        @* <input type="number" value="@Model.Salary" name="Salary" id="Salary" class="form form-control" /> *@
+        @* @Html.EditorFor(e=>e.Salary) *@
+        <input asp-for="Salary" class="form form-control" />
     </div>
     <div>
         <label>Address</label>
         <input type="text" value="@Model.Address" name="Address" id="Address" class="form form-control" />
-    </div>
-    <div>
-        <label>Salary</label>
-        <input type="number" value="@Model.Salary" name="Salary" id="Salary" class="form form-control" />
     </div>
     <div>
         <label>JobTitle</label>
@@ -31,7 +45,9 @@
         <input type="text" value="@Model.Image" name="Image" id="Image" class="form form-control" />
     </div>
     <div>
-        <label>Department (Id)</label>
+        @* <label>Department (Id)</label> *@
+        @Html.LabelFor(e=>e.DepartmentId)
+
         @* <input type="text" value="@Model.DepartmentId" name="DepartmentId" id="DepartmentId" class="form form-control" /> *@
         <select name="DepartmentId" id="DepartmentId" class="form form-control">
             @foreach (var deptItem in Model.DeptList)
@@ -52,3 +68,11 @@
 </form>
 
 <a href="/Employee/index">back to list</a>
+<br/>
+@Html.ActionLink("back To list","Index","Employee")
+<br />
+<a href="/Employee/DEtails/@Model.Id">DEtails</a>
+<br />
+@Html.ActionLink("DEtails text", "DEtails", "Employee", new { id = Model.Id, desc ="Hello"})
+
+<br />

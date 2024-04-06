@@ -1,4 +1,6 @@
 ﻿using AECProject.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace AECProject.Controllers
@@ -10,8 +12,32 @@ namespace AECProject.Controllers
         {
             
         }
+        [HttpGet]//link
+        public IActionResult New()
+        {
+            ViewData["DeptList"] = context.Department.ToList();
+            return View();//view with the same action name "New" ,Model = null
+            //return View("New");
+        }
+        [HttpPost]
+        public IActionResult SaveNew(Employee empFromREquest)//,string name,int id)
+        {
+            if (empFromREquest.Name != null)
+            {
+                context.Employee.Add(empFromREquest);
+                context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewData["DeptList"] = context.Department.ToList();
+            return View("New",empFromREquest);//view name=New ,Model =Emp
+        }
+
         public IActionResult Index()
         {
+            //join depaty+ employee =>VIewModel
+            //var result=
+            //    context.Employee.Select(e => new { name = e.Name, id = e.Id, depName = e.Department.Name });
+            //return View("Index", context.Employee.Include(e=>e.Department).ToList());//pagination
             return View("Index", context.Employee.ToList());//pagination
         }
 
@@ -37,7 +63,10 @@ namespace AECProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveEdit(EmpWithDeptListViewModel empFromReq)
+        public IActionResult SaveEdit(
+            EmpWithDeptListViewModel empFromReq,
+            Employee emp
+            ,int id,string name,string address,int salary)
         {
             if(empFromReq.Name!=null && empFromReq.Salary > 6000)
             {
@@ -53,6 +82,8 @@ namespace AECProject.Controllers
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
+          //  Employee Model = new EmpWithDeptListViewModel();
+            empFromReq.DeptList = context.Department.ToList();
             return View("Edit", empFromReq);
         }
 
@@ -93,7 +124,7 @@ namespace AECProject.Controllers
         }
 
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id ,string desc)
         {
             /*Extra info from action View*/
             string Msg = "Welcome From Action";

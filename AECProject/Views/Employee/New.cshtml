@@ -7,25 +7,33 @@
 <h1>New</h1>
 <!--Form using Tag Helper (strong type view)-->
 <form asp-action="SaveNew" asp-controller="Employee" method="post">
+    <div asp-validation-summary="All" class="text-danger">
+        <!--MOdel Propety error or any other error UL-->
+    </div>
     <div>
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Salary"></label>
         <input asp-for="Salary" class="form form-control" />
+        <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Address"></label>
         <input asp-for="Address" class="form form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Image"></label>
         <input asp-for="Image" class="form form-control" />
+        <span asp-validation-for="Image" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="JobTitle"></label>
         <input asp-for="JobTitle" class="form form-control" />
+        <span asp-validation-for="JobTitle" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="DepartmentId"></label>
@@ -33,7 +41,17 @@
         <select asp-for="DepartmentId" asp-items="deptList" class="form form-control">
             <option value="0">-- Select Department --</option>
         </select>
+        <span asp-validation-for="DepartmentId" class="text-danger"></span>
     </div>
     <input type="submit" value="Create" class="btn btn-success"/>
 </form>
 <a asp-action="Index" asp-controller="Employee" >Back To List</a>
+<!--3 Jquery packge to make client Side Validation-->
+<!--Jquery-->
+<!--JQury Validation-->
+<!--JQuery Validation Unobtruct "attribute"-->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+

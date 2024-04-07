@@ -12,9 +12,35 @@ namespace AECProject.Controllers
         {
             
         }
+        //call using ajax
+        public IActionResult CheckSalary(int Salary,string JobTitle)
+            //check [] another property come from request
+        {
+            //uniue email 
+            
+            if (Salary < 25000 && Salary > 6000 && JobTitle=="M")//range
+                return Json(true);
+            else if(Salary<10000 && Salary >6000 && JobTitle=="S")
+                return Json(true);
+            else
+                return Json(false);
+        }
+
+
         [HttpGet]//link
         public IActionResult New()
         {
+            /*id,name,nameDept*/
+            //List<EmpWithDeptNameViewModel>emp=
+            //    context.Employee.Select(e => new EmpWithDeptNameViewModel()
+            //{
+            //    Id = e.Id,
+            //    Name = e.Name,
+            //    DeptName = e.Department.Name
+            //}).ToList();
+
+
+
             ViewData["DeptList"] = context.Department.ToList();
             return View();//view with the same action name "New" ,Model = null
             //return View("New");
@@ -22,14 +48,22 @@ namespace AECProject.Controllers
         [HttpPost]
         public IActionResult SaveNew(Employee empFromREquest)//,string name,int id)
         {
-            if (empFromREquest.Name != null)
+           // if (empFromREquest.Name.len != null)
+            if(ModelState.IsValid==true)
             {
-                context.Employee.Add(empFromREquest);
-                context.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    context.Employee.Add(empFromREquest);
+                    context.SaveChanges();//throw exception
+                    return RedirectToAction("Index");
+                }catch (Exception ex)
+                {
+                    ModelState.AddModelError("DepartmentId", "Please Select DEpartemt");
+                    ModelState.AddModelError(string.Empty, ex.InnerException.Message);//annoums key 
+                }
             }
             ViewData["DeptList"] = context.Department.ToList();
-            return View("New",empFromREquest);//view name=New ,Model =Emp
+            return View("New",empFromREquest);//view name=New ,Model =Emp ,Model State
         }
 
         public IActionResult Index()

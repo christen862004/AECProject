@@ -31,13 +31,13 @@ namespace AECProject.Controllers
         public IActionResult New()
         {
             /*id,name,nameDept*/
-            //List<EmpWithDeptNameViewModel>emp=
-            //    context.Employee.Select(e => new EmpWithDeptNameViewModel()
-            //{
-            //    Id = e.Id,
-            //    Name = e.Name,
-            //    DeptName = e.Department.Name
-            //}).ToList();
+            List<EmpWithDeptNameViewModel> emp =
+                context.Employee.Select(e => new EmpWithDeptNameViewModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    DeptName = e.Department.Name
+                }).ToList();
 
 
 

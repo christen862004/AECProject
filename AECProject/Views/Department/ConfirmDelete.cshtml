@@ -1,0 +1,14 @@
+﻿@model Department
+@{
+    ViewData["Title"] = "ConfirmDelete";
+}
+
+<h1>ConfirmDelete</h1>
+
+<!--use partial-->
+
+<partial name="_DepartmentDEtailsPartial" />
+
+<a href="/Department/index">back to list</a>
+<a href="/Department/Delete/@Model.Id">back to list</a>
+

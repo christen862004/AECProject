@@ -52,14 +52,30 @@ namespace AECProject
             app.UseStaticFiles();// client side files js
 
             app.UseSession();//default settion
-
-            app.UseRouting();//reuest controller ,action
+            
+            //Guid request math any route define inside MapRoute
+            app.UseRouting();//reuest controller ,action (r1)
 
             app.UseAuthorization();//not work
 
+
+            //NAmeing convention route
+            //app.MapControllerRoute("Route1",
+            //                       "s/{name}/{age:int:range(20,60)}/{color?}",
+            //                       new {controller="Route",action= "Method1" });
+          
+            //app.MapControllerRoute("r1", "{controller=Route}/{action=Method1}");
+          
+
+            //app.MapControllerRoute("r2", "s2",
+            //    new { Controller = "Route", action = "MEthod2" });
+
+
+
+            //DEfine Route (Plan) & execute (Run)
             app.MapControllerRoute( //url ==>execute
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Employee}/{action=Index}/{id?}");
             #endregion
 
             app.Run();//astrat

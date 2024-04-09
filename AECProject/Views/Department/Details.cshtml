@@ -5,6 +5,9 @@
 
 <h1>Details</h1>
 
-<h2>@Model.Name</h2>
-<h2>@Model.ManagerName</h2>
+<!--use Partial view-->
+
+@* <partial name="_DepartmentDEtailsPartial" model="Model" /> *@
+<partial name="_DepartmentDEtailsPartial"/>
 <a href="/Department/Index">Back To List</a>
+<a href="/Department/Edit/@Model.Id">Edit</a>

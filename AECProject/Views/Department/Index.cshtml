@@ -6,12 +6,18 @@
 }
 
 <h1>Index</h1>
+<div style="border:red solid 3px"id="div1">
+
+</div>
 <a href="/Department/New" class="btn btn-success">New</a>
 
 <table class="table table-bordered table-hover">
     <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>
+        </th>
+        <th></th>
     </tr>
     @foreach (var item in Model)
     {
@@ -19,6 +25,27 @@
             <td>@item.Id</td>
             <td>@item.Name</td>
             <td><a href="\Department\Details?id=@item.Id">Details</a></td>
+            <td><a href="\Department\DeptPartial\@item.Id" onclick="LoadDeptDetails(@item.Id)">Details Partial</a></td>
         </tr>
     }
 </table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function LoadDeptDetails(deptID) {
+        event.preventDefault(); //href
+        console.log(deptID);
+        //ajax call \Department\DeptPartial\deptId
+        $.ajax(
+            {
+                url: "/DEpartment/DeptPartial/" + deptID,
+                success: function (result) {
+                    $("#div1").html(result);
+                    console.log(result);
+                }
+            });
+        
+        //response load div
+
+    }
+</script>

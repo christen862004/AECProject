@@ -1,18 +1,34 @@
-﻿namespace AECProject.Controllers
+﻿using AECProject.Repository;
+
+namespace AECProject.Controllers
 {
+    //open etend open modifictaion DIP
+    //Hign level (conroller) depend low level (repository)
     public class DepartmentController : Controller
     {
-        ITIContext context = new ITIContext();
+        //low level
+        IDepartmentRepository DepartmentRepository;//null
+        IEmployeeRepository EmployeeRepository;//null
+        //DI (constructor)
+        //Controller FActory
+        public DepartmentController
+            (IDepartmentRepository deptREpo,IEmployeeRepository EmpRepo)//ask (Inject)
+        {
+            DepartmentRepository = deptREpo;
+            EmployeeRepository = EmpRepo;
+        }
+        //ITIContext context = new ITIContext();
         public IActionResult DeptEmp()
         {
-            List<Department> DeptList = context.Department.ToList();
+            List<Department> DeptList = DepartmentRepository.GetAll();
             return View("DeptEmp", DeptList);
         }
        
         //DEpartment/GetEmpByDEpt?deptid=1 calling using ajax
         public IActionResult GetEmpByDEpt(int deptid)
         {
-            List<Employee> empList= context.Employee.Where(e => e.DepartmentId == deptid).ToList();
+            List<Employee> empList= EmployeeRepository.GetByDeptId(deptid);
+              
             return Json(empList);
         }
     
@@ -20,7 +36,7 @@
         //define action return part on page
         public IActionResult DeptPartial(int id)
         {
-            Department dept= context.Department.FirstOrDefault(x => x.Id == id);
+            Department dept=DepartmentRepository.GetById(id);
             //return PartialView("Details", dept);//dont call viewStart file 
             return PartialView("_DepartmentDEtailsPartial", dept);
         }
@@ -30,20 +46,20 @@
         public IActionResult Index()
         {
            // context.Find()
-            List<Department> departmentList=context.Department.ToList();
+            List<Department> departmentList=DepartmentRepository.GetAll();
             return View("Index",departmentList);//View Index ,Model List<Department>
         }
       
         //CAn server any request type (GET |POST)
         public IActionResult Details(int id)
         {
-            Department department = context.Department.FirstOrDefault(d=>d.Id == id);
+            Department department =DepartmentRepository.GetById(id);
             return View("Details", department);//view Details ,Model =DEpartment
         }
 
         public IActionResult ConfirmDelete(int id)
         {
-            Department dept = context.Department.FirstOrDefault(d => d.Id == id);
+            Department dept = DepartmentRepository.GetById(id);
             return View(dept);
         }
         //press anchor tag
@@ -61,8 +77,8 @@
             //if(Request.Method== "POST") { 
             if(DeptFromReq.Name != null)
             {
-                context.Add(DeptFromReq);
-                context.SaveChanges();
+                DepartmentRepository.Insert(DeptFromReq);
+                DepartmentRepository.Save();
                 return RedirectToAction("Index","Department");
             }
           

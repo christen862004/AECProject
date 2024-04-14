@@ -8,8 +8,14 @@ namespace AECProject.Models
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Department> Department { get; set; }
 
-        public ITIContext():base()
+        public ITIContext() : base()
         { }
+        //cant use
+        public ITIContext(DbContextOptions<ITIContext> options) 
+            : base(options)//inject ==>ioc resolve
+        {
+
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -1,3 +1,6 @@
+using AECProject.Repository;
+using Microsoft.EntityFrameworkCore;
+
 namespace AECProject
 {
     public class Program
@@ -5,8 +8,37 @@ namespace AECProject
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // Inversion Of Controller
+            // Add services to the container(IOC Container) ServiceProvider. Day 8
+            //3 type of service
+            //1- framwork service (already defined -already REgister)
+            //2- built in service need to register
+            builder.Services.AddDbContext<ITIContext>(
+                options=>
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("cs"))
+                );//inject DbContextOption & inject ITIContext
 
-            // Add services to the container. Day 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddSession(
@@ -15,6 +47,11 @@ namespace AECProject
                     options.IdleTimeout = TimeSpan.FromMinutes(30);//change sesion time out
                 }
                 );//add setting
+            //3- Custom service (define class- register)
+            builder.Services.AddScoped<IDepartmentRepository,DepartmentRepository>();
+            //create object per request
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
 
             var app = builder.Build();
 

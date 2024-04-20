@@ -1,11 +1,13 @@
 ﻿using AECProject.Repository;
 using AECProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace AECProject.Controllers
 {
+    
     public class EmployeeController : Controller
     {
         //  ITIContext context = new ITIContext();
@@ -72,6 +74,8 @@ namespace AECProject.Controllers
             return View("New",empFromREquest);//view name=New ,Model =Emp ,Model State
         }
 
+
+        [Authorize]//check cookie ==REdirect to login
         public IActionResult Index()
         {
             //join depaty+ employee =>VIewModel

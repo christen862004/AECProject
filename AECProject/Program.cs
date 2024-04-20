@@ -1,4 +1,5 @@
 using AECProject.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AECProject
@@ -13,33 +14,26 @@ namespace AECProject
             //3 type of service
             //1- framwork service (already defined -already REgister)
             //2- built in service need to register
+            //builder.Services.AddControllersWithViews(options=>
+            //     options.Filters.Add(new HandelErrorAttribute())//global fitter
+            //);
+            builder.Services.AddControllersWithViews();
+            
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
+                options =>
+                {
+                    options.Password.RequiredLength = 4;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireUppercase = false;
+
+                }).AddEntityFrameworkStores<ITIContext>();
+
+
             builder.Services.AddDbContext<ITIContext>(
-                options=>
+                options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("cs"))
                 );//inject DbContextOption & inject ITIContext
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            builder.Services.AddControllersWithViews();
 
             builder.Services.AddSession(
                 options =>
@@ -84,7 +78,7 @@ namespace AECProject
             #region Built In pipline
             if (!app.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error");//action exception
             }
             app.UseStaticFiles();// client side files js
 

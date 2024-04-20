@@ -1,5 +1,34 @@
 ﻿namespace AECProject.Models
 {
+    //class IdentityUser<T>
+    //{
+    //    public T ID { get; set; }
+    //    public string  UserNAme { get; set; }
+    //    public string PAssword { get; set; }
+    //}
+    //class IdentityUser:IdentityUser<string>
+    //{
+       
+    //}
+
+
+    //class test1
+    //{
+    //    void method1()
+    //    {
+    //        IdentityUser<int> user=new
+    //            IdentityUser<int>();
+    //        user.ID = 1;
+    //    }
+    //}
+
+
+
+
+
+
+
+
     //abstractio (interface)
     interface ISort
     {

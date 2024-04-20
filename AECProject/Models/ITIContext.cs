@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace AECProject.Models
 {
     //Deal wirth db
-    public class ITIContext:DbContext
+    public class ITIContext:IdentityDbContext<ApplicationUser>
     {
         public DbSet<Employee> Employee { get; set; }
         public DbSet<Department> Department { get; set; }

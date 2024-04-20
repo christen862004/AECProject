@@ -2,3 +2,4 @@
 global using Microsoft.AspNetCore.Mvc;
 global using AECProject.ViewModels;
 global using AECProject.Repository;
+global using AECProject.Fitters;

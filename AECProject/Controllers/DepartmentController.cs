@@ -1,9 +1,11 @@
 ﻿using AECProject.Repository;
+using System.Runtime.InteropServices;
 
 namespace AECProject.Controllers
 {
     //open etend open modifictaion DIP
     //Hign level (conroller) depend low level (repository)
+    
     public class DepartmentController : Controller
     {
         //low level
@@ -73,6 +75,7 @@ namespace AECProject.Controllers
         //Press Submit button
         //DEpartment/SaveNEw?Name=SD&ManagerName=Ahmed
         [HttpPost]//action attribute
+        
         public IActionResult SaveNew(Department DeptFromReq) {
             //if(Request.Method== "POST") { 
             if(DeptFromReq.Name != null)
